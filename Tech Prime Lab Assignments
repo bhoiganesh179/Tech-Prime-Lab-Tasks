@@ -12,3 +12,41 @@ inner join Sales.SalesOrderDetail sod on soh.SalesOrderID=sod.SalesOrderID
 group by soh.CustomerID
 having count(distinct sod.ProductID)>2
 order by 2 desc
+
+------Practice Questions 1
+Select p.FirstName+' '+p.MiddleName+' '+p.LastName as employee,d.Name as dept_name
+from HumanResources.Employee e
+inner join HumanResources.EmployeeDepartmentHistory edh on e.BusinessEntityID=edh.BusinessEntityID
+inner join HumanResources.Department d on edh.DepartmentID=d.DepartmentID
+inner join Person.Person p on e.BusinessEntityID=p.BusinessEntityID
+where edh.EndDate is null
+
+
+------Practice Questions 2
+select e.JobTitle,count(*) from HumanResources.Employee e
+inner join HumanResources.EmployeeDepartmentHistory edh on e.BusinessEntityID=edh.BusinessEntityID
+where edh.EndDate is null
+group by JobTitle
+
+
+
+------Practice Questions 3
+select top 5 ProductID,sum(UnitPrice*OrderQty) as total_sales
+from Sales.SalesOrderDetail
+group by ProductID
+order by 2 desc
+
+
+
+------Practice Questions 4
+select ProductID,avg(UnitPriceDiscount)/UnitPrice*100 as AVG_Discount_Perc from Sales.SalesOrderDetail
+group by ProductID,UnitPrice
+
+
+
+---Practice Questions 5
+select  p.FirstName+' '+p.MiddleName+' '+p.LastName as employee,sum(sod.SubTotal) as Total_sales
+from Person.Person p
+inner join Sales.SalesOrderHeader sod on p.BusinessEntityID=sod.SalesPersonID
+group by p.FirstName,p.MiddleName,p.LastName
+order by 2 desc
