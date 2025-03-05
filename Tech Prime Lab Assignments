@@ -1,0 +1,14 @@
+
+----Task 1
+select soh.CustomerID,count(distinct soh.SalesOrderID) as total_orders from Sales.SalesOrderHeader soh
+inner join Sales.SalesOrderDetail sod on soh.SalesOrderID=sod.SalesOrderID
+group by soh.CustomerID
+having count(distinct soh.SalesOrderID)>0
+
+
+-----Task 2
+select top 5 soh.CustomerID,count(distinct sod.ProductID) as total_product from Sales.SalesOrderHeader soh
+inner join Sales.SalesOrderDetail sod on soh.SalesOrderID=sod.SalesOrderID
+group by soh.CustomerID
+having count(distinct sod.ProductID)>2
+order by 2 desc
